@@ -1,0 +1,29 @@
+<button routerLink="/">
+    Ticket List
+</button>
+
+<div class="detail-container" *ngIf="currentTicket">
+    <div class="detail-item">Assignee:
+        <span *ngIf="currentTicket.assigneeId">{{getAssignee(currentTicket.assigneeId)}}</span>
+        <span *ngIf="!currentTicket.assigneeId">TBD</span>
+
+        <div *ngIf="users">
+            <button (click)="submitAssignee()" [disabled]="updateTicketRequest$ || !selectedAssignee">
+                Change Assignee
+            </button>
+            <select [(ngModel)]="selectedAssignee">
+                <option *ngFor="let user of users" [value]="user.id">
+                    {{user.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="detail-item">
+        Completed: {{currentTicket.completed}}
+        <button (click)="submitComplete()" *ngIf="!currentTicket.completed" [disabled]="updateTicketRequest$">
+            Complete
+        </button>
+    </div>
+    <div class="detail-item">Description: {{currentTicket.description}}</div>
+</div>

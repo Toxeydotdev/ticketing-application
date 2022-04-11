@@ -1,0 +1,25 @@
+<h2>Tickets</h2>
+
+<div class="add-ticket-container">
+    <label>Description:</label>
+    <input [(ngModel)]="ticketDescription">
+    <button [disabled]="!ticketDescription || newTicketRequest$" (click)="addTicket()">
+        Add Ticket
+    </button>
+</div>
+
+<div class="filter-ticket-container">
+    <div>
+        <label>Filter:</label>
+        <input [(ngModel)]="filter" (input)="filterTickets()">
+    </div>
+</div>
+<ul>
+    <li class="ticket-list-item" *ngFor="let t of filteredTickets" routerLink="/detail/{{t.id}}">
+        <div>Ticket: {{t.id}}</div>
+        <div>Description: {{t.description}}</div>
+        <div>Assignee: <span *ngIf="t.assigneeId">{{getAssignee(t.assigneeId)}}</span> <span
+                *ngIf="!t.assigneeId">TBD</span></div>
+        <div>Completed: {{t.completed}}</div>
+    </li>
+</ul>
